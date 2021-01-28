@@ -713,69 +713,69 @@ module.exports = function (app) {
     });
 
     /**
-    * @swagger
-    * /api/convert/{srcDataType}:
-    *   post:
-    *     description: Converts given data to FHIR using template
-    *     produces:
-    *       - application/json
-    *     consumes:
-    *       - text/plain
-    *     parameters:
-    *       - name: srcDataType
-    *         description: Data type of the source (e.g. 'hl7v2', 'cda')
-    *         in: path
-    *         required: true
-    *         type: string
-    *       - name: conversion
-    *         description: Conversion task
-    *         in: body
-    *         required: true
-    *         schema:
-    *           type: object
-    *           properties:
-    *             templateBase64:
-    *               type: string
-    *             srcDataBase64:
-    *               type: string
-    *             templatesOverrideBase64:
-    *               type: string
-    *           required:
-    *             - templateBase64
-    *             - srcDataBase64
-    *       - name: api-version
-    *         in: query
-    *         description: API version to use.
-    *         required: false
-    *         type: string
-    *       - name: code
-    *         in: query
-    *         description: 'API key'
-    *         required: false
-    *         type: string
-    *       - name: unusedSegments
-    *         in: query
-    *         description: 'Flag about whether to return the "unusedSegments", only used in web portal'
-    *         required: false
-    *         type: bool
-    *       - name: invalidAccess
-    *         in: query
-    *         description: 'Flag about whether to return the "invalidAccess", only used in web portal'
-    *         required: false
-    *         type: bool
-    *       - name: X-MS-CONVERSION-API-KEY
-    *         in: header
-    *         description: 'API key'
-    *         required: false
-    *         type: string
-    *     responses:
-    *       200:
-    *         description: Converted message
-    *       400:
-    *         description: Bad request
-    *       401:
-    *         description: Unauthorized
-    */
+     * @swagger
+     * /api/convert/{srcDataType}:
+     *   post:
+     *     description: Converts given data to FHIR using template
+     *     produces:
+     *       - application/json
+     *     consumes:
+     *       - text/plain
+     *     parameters:
+     *       - name: srcDataType
+     *         description: Data type of the source (e.g. 'hl7v2', 'cda')
+     *         in: path
+     *         required: true
+     *         type: string
+     *       - name: conversion
+     *         description: Conversion task
+     *         in: body
+     *         required: true
+     *         schema:
+     *           type: object
+     *           properties:
+     *             templateBase64:
+     *               type: string
+     *             srcDataBase64:
+     *               type: string
+     *             templatesOverrideBase64:
+     *               type: string
+     *           required:
+     *             - templateBase64
+     *             - srcDataBase64
+     *       - name: api-version
+     *         in: query
+     *         description: API version to use.
+     *         required: false
+     *         type: string
+     *       - name: code
+     *         in: query
+     *         description: 'API key'
+     *         required: false
+     *         type: string
+     *       - name: unusedSegments
+     *         in: query
+     *         description: 'Flag about whether to return the "unusedSegments", only used in web portal'
+     *         required: false
+     *         type: boolean
+     *       - name: invalidAccess
+     *         in: query
+     *         description: 'Flag about whether to return the "invalidAccess", only used in web portal'
+     *         required: false
+     *         type: boolean
+     *       - name: X-MS-CONVERSION-API-KEY
+     *         in: header
+     *         description: 'API key'
+     *         required: false
+     *         type: string
+     *     responses:
+     *       200:
+     *         description: Converted message
+     *       400:
+     *         description: Bad request
+     *       401:
+     *         description: Unauthorized
+     */
     app.post('/api/convert/:srcDataType', function (req, res) {
         const retUnusedSegments = req.query.unusedSegments == 'true';
         const retInvalidAcces = req.query.invalidAccess == 'true';
@@ -800,66 +800,66 @@ module.exports = function (app) {
     });
 
     /**
-    * @swagger
-    * /api/convert/{srcDataType}/{template}:
-    *   post:
-    *     description: Converts given data to FHIR using template
-    *     produces:
-    *       - application/json
-    *     consumes:
-    *       - text/plain
-    *     parameters:
-    *       - name: srcDataType
-    *         description: Data type of the source (e.g. 'hl7v2', 'cda')
-    *         in: path
-    *         required: true
-    *         type: string
-    *       - name: template
-    *         description: Name of a specific template
-    *         in: path
-    *         required: true
-    *         type: string
-    *       - name: srcData
-    *         description: the source data to convert
-    *         in: body
-    *         required: true
-    *         schema:
-    *           type: string
-    *       - name: api-version
-    *         in: query
-    *         description: API version to use. The current version is 1.0. Previous versions, including passing no version, are deprecated.
-    *         required: false
-    *         type: string
-    *       - name: code
-    *         in: query
-    *         description: 'API key'
-    *         required: false
-    *         type: string
-    *       - name: unusedSegments
-    *         in: query
-    *         description: 'Flag about whether to return the "unusedSegments", only used in web portal'
-    *         required: false
-    *         type: bool
-    *       - name: invalidAccess
-    *         in: query
-    *         description: 'Flag about whether to return the "invalidAccess", only used in web portal'
-    *         required: false
-    *         type: bool
-    *       - name: X-MS-CONVERSION-API-KEY
-    *         in: header
-    *         description: 'API key'
-    *         required: false
-    *         type: string
-    *     responses:
-    *       200:
-    *         description: Converted message
-    *       400:
-    *         description: Bad request
-    *       401:
-    *         description: Unauthorized
-    *       404:
-    *         description: Template not found
-    */
+     * @swagger
+     * /api/convert/{srcDataType}/{template}:
+     *   post:
+     *     description: Converts given data to FHIR using template
+     *     produces:
+     *       - application/json
+     *     consumes:
+     *       - text/plain
+     *     parameters:
+     *       - name: srcDataType
+     *         description: Data type of the source (e.g. 'hl7v2', 'cda')
+     *         in: path
+     *         required: true
+     *         type: string
+     *       - name: template
+     *         description: Name of a specific template
+     *         in: path
+     *         required: true
+     *         type: string
+     *       - name: srcData
+     *         description: the source data to convert
+     *         in: body
+     *         required: true
+     *         schema:
+     *           type: string
+     *       - name: api-version
+     *         in: query
+     *         description: API version to use. The current version is 1.0. Previous versions, including passing no version, are deprecated.
+     *         required: false
+     *         type: string
+     *       - name: code
+     *         in: query
+     *         description: 'API key'
+     *         required: false
+     *         type: string
+     *       - name: unusedSegments
+     *         in: query
+     *         description: 'Flag about whether to return the "unusedSegments", only used in web portal'
+     *         required: false
+     *         type: boolean
+     *       - name: invalidAccess
+     *         in: query
+     *         description: 'Flag about whether to return the "invalidAccess", only used in web portal'
+     *         required: false
+     *         type: boolean
+     *       - name: X-MS-CONVERSION-API-KEY
+     *         in: header
+     *         description: 'API key'
+     *         required: false
+     *         type: string
+     *     responses:
+     *       200:
+     *         description: Converted message
+     *       400:
+     *         description: Bad request
+     *       401:
+     *         description: Unauthorized
+     *       404:
+     *         description: Template not found
+     */
     app.post('/api/convert/:srcDataType/:template(*)', function (req, res) {
         const retUnusedSegments = req.query.unusedSegments == 'true';
         const retInvalidAcces = req.query.invalidAccess == 'true';
