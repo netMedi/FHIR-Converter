@@ -1,8 +1,7 @@
 #########################################
 ### Base Image                         ##
 #########################################
-FROM node:10
-ARG version=v2.1.0
+FROM node:14
 RUN apt-get update && apt install libcurl4-gnutls-dev default-jdk -y && apt autoremove -y
 
 COPY . /app
