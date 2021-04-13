@@ -6,6 +6,7 @@ on:
     branches:
       - handlebars
       - handlebars-stable
+      - test-deployment
 
 
 env:
@@ -47,3 +48,11 @@ jobs:
           context: .
           push: true
           tags: ${{ env.IMAGE_NAME }}:latest
+      -
+        name: Build and push
+        if: ${{ github.ref == 'refs/heads/test-deployment' }}
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ env.IMAGE_NAME }}:test-deployment

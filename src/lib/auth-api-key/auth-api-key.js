@@ -19,6 +19,10 @@ var setValidApiKeys = function (keys) {
     validApiKeys = keys
         .map(function (s) { return s.trim(); })
         .filter(function (e) { return e != ""; });
+    console.log("Printing all valid API keys")
+    validApiKeys.forEach(function(value) {
+        console.log(value)
+    })
 };
 
 var validateApiKey = function (req, res, next) {
@@ -27,6 +31,8 @@ var validateApiKey = function (req, res, next) {
         next();
     } else {
         if (req.query[API_KEY_QUERY_PARAMETER]) {
+            console.log("Query param")
+            console.log(req.query[API_KEY_QUERY_PARAMETER])
             if (validApiKeys.indexOf(req.query[API_KEY_QUERY_PARAMETER]) != -1) {
                 res.cookie('key', req.query[API_KEY_QUERY_PARAMETER], { httpOnly: true, secure:true });
                 next();
@@ -34,6 +40,8 @@ var validateApiKey = function (req, res, next) {
             }
         }
         else if (req.get(API_KEY_HEADER)) {
+            console.log("Header")
+            console.log(req.get(API_KEY_HEADER))
             if (validApiKeys.indexOf(req.get(API_KEY_HEADER)) != -1) {
                 res.cookie('key', req.get(API_KEY_HEADER), { httpOnly: true, secure: true });
                 next();
@@ -41,11 +49,13 @@ var validateApiKey = function (req, res, next) {
             }
         } 
         else if (req.cookies.key && validApiKeys.indexOf(req.cookies.key) != -1) {
+            console.log("Cookie")
+            console.log(req.cookies.key)
             res.cookie('key', req.cookies.key, { httpOnly: true, secure:true });
             next();
             return;
         }
-
+        console.log("After validation")
         // We are enforcing auth and no valid key has been found
         res.status(401);
         res.json(errorMessage(errorCodes.Unauthorized, 'No valid API key provided. Please set ' + API_KEY_HEADER + ' header field or ' + API_KEY_QUERY_PARAMETER + ' query parameter.'));
