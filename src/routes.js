@@ -498,7 +498,8 @@ module.exports = function (app) {
     app.get('/api/templates', function (req, res) {
         templateCache.keys()
             .then((files) => res.json({ templates: files.map(f => { return { templateName: f }; }) }))
-            .catch(() => {
+            .catch((err) => {
+                console.log(err)
                 res.status(404);
                 res.json(errorMessage(errorCodes.NotFound, 'Unable to access templates location'));
             });
